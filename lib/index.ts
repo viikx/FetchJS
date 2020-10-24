@@ -1,4 +1,4 @@
-import Core from './core.js'
+import Core, { customRequestInit } from './core.js'
 
 /**
  * Fetch(url,{})
@@ -18,7 +18,7 @@ function Fetch(input: string | Function, option?: RequestInit) {
   }
 }
 // 考虑proxy
-Fetch.setOption = (props: RequestInit) => {
+Fetch.setOption = (props: customRequestInit) => {
   Core.getInstance().setOption(props)
 }
 export default Fetch

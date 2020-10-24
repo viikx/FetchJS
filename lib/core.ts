@@ -1,4 +1,4 @@
-interface customRequestInit extends RequestInit {
+export interface customRequestInit extends RequestInit {
   Timeout: number
   onTimeout?: () => void
 }
