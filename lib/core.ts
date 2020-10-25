@@ -44,7 +44,7 @@ export default class Core {
     const signal = controller.signal
     try {
       for (let requestItem of this.interceptors.request.handlers) {
-        opt = requestItem(opt)
+        opt = await requestItem(opt)
       }
 
       res = await Promise.race<Promise<Response>>([
@@ -57,9 +57,9 @@ export default class Core {
           }, Timeout);
         })
       ])
-      for (let responseItem of this.interceptors.response.handlers) {
-        responseItem(res)
-      }
+      // for (let responseItem of this.interceptors.response.handlers) {
+      //   res = await responseItem(res) as Response
+      // }
       return res;
     }
     catch (e) {
@@ -81,7 +81,7 @@ export default class Core {
 }
 
 interface Config {
-  (config: RequestInit): RequestInit
+  (config: RequestInit): RequestInit | Response
 }
 class InterceptorManager {
   handlers: Config[] = [];

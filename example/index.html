@@ -10,8 +10,18 @@
 <body>
   <script type="module">
     import Fetch from "../dist/index.js"
-    Fetch
-    Fetch('asfd', {})
+    Fetch.interceptors.request.use((opt) => {
+      console.log(opt.data)
+      opt.data = { b: 1 }
+      return opt
+    })
+    Fetch.interceptors.request.use((opt) => {
+      console.log(opt.data)
+      return opt
+    })
+    Fetch('index.js', {
+      data: { a: 1 }
+    }).then(res => res.text()).then(res => console.log(res))
   </script>
 </body>
 

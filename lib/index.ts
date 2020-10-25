@@ -4,8 +4,9 @@ import Core, { customRequestInit } from './core.js'
  * Fetch(url,{})
  * Fetch(url,{body})
  */
-
-
+if (!fetch) {
+  console.error('浏览器不支持fetch')
+}
 function Fetch(input: string | Function, option?: RequestInit) {
   if (typeof input === 'string') {
     return Core.getInstance().run(input, option)
@@ -21,4 +22,5 @@ function Fetch(input: string | Function, option?: RequestInit) {
 Fetch.setOption = (props: customRequestInit) => {
   Core.getInstance().setOption(props)
 }
+Fetch.interceptors = Core.getInstance().interceptors
 export default Fetch
