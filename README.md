@@ -40,8 +40,10 @@ Fetch(url,{
 ```
 配置请求前中间件
 `Fetch.interceptors.request.use((option)=>{})`  
-配置请求后中间件
-`Fetch.interceptors.response.use((res)=>{})`
+
+响应中间件维护中...
+<!-- 配置响应中间件
+`Fetch.interceptors.response.use((res)=>{})` -->
 
 
 自定义请求函数
