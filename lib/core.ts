@@ -12,7 +12,7 @@ export default class Core {
     }
     return this.instance;
   }
-
+  // 考虑依赖注入方式实现
   interceptors = {
     request: new InterceptorManager(),
     response: new InterceptorManager()
@@ -57,9 +57,9 @@ export default class Core {
           }, Timeout);
         })
       ])
-      // for (let responseItem of this.interceptors.response.handlers) {
-      //   res = await responseItem(res) as Response
-      // }
+      for (let responseItem of this.interceptors.response.handlers) {
+        res = await responseItem(res) as Response
+      }
       return res;
     }
     catch (e) {

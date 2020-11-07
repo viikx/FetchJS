@@ -39,11 +39,11 @@ Fetch(url,{
 })
 ```
 配置请求前中间件
-`Fetch.interceptors.request.use((option)=>{})`  
+`Fetch.interceptors.request.use(option => option)`  
 
-响应中间件维护中...
-<!-- 配置响应中间件
-`Fetch.interceptors.response.use((res)=>{})` -->
+
+配置响应中间件
+`Fetch.interceptors.response.use(res => res)`
 
 
 自定义请求函数

@@ -1,4 +1,4 @@
-import Core, { customRequestInit } from './core.js'
+import Core, { customRequestInit } from './core'
 
 /**
  * Fetch(url,{})
