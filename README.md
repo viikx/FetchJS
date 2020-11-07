@@ -22,6 +22,8 @@ Fetch.setOption({
 
 发送请求,配置单次请求参数
 ``` js
+const controller = new AbortController()
+const signal = controller.signal
 Fetch(url,{
     // fetch原生提供
     method: 'GET',
@@ -32,6 +34,7 @@ Fetch(url,{
     redirect: 'follow',
     referrer: 'client',
     referrerPolicy: 'origin',
+    signal,
     // 封装功能 
     // 超时自动取消
     Timeout: 1000,

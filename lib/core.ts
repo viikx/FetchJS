@@ -40,15 +40,19 @@ export default class Core {
     const { Timeout, onTimeout, ...customOption } = this.customOption
     let opt = this.transformRequest({ ...customOption, ...init });
     let res: Response
-    const controller = new AbortController()
-    const signal = controller.signal
+    let controller: AbortController
+    let signal: AbortSignal
     try {
       for (let requestItem of this.interceptors.request.handlers) {
         opt = await requestItem(opt)
       }
-
+      if (!opt.signal) {
+        controller = new AbortController()
+        signal = controller.signal
+        opt.signal = signal
+      }
       res = await Promise.race<Promise<Response>>([
-        fetch(new Request(url, { ...this.defaultOption, ...opt, signal })),
+        fetch(new Request(url, { ...this.defaultOption, ...opt })),
         new Promise((resolve, reject) => {
           setTimeout(() => {
             controller.abort()
