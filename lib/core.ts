@@ -53,11 +53,12 @@ export default class Core {
       }
       res = await Promise.race<Promise<Response>>([
         fetch(new Request(url, { ...this.defaultOption, ...opt })),
-        new Promise((resolve, reject) => {
+        new Promise<Response>((resolve, reject) => {
           setTimeout(() => {
             controller.abort()
-            onTimeout && onTimeout(url)
-            reject(new Error(`${url} request timeout`));
+            const init = { "status": 10004, "statusText": `${url}: timeout!` };
+            reject(init);
+            onTimeout?.(url)
           }, Timeout);
         })
       ])
@@ -67,7 +68,7 @@ export default class Core {
       return res;
     }
     catch (e) {
-      throw new Error(e)
+      throw new Error(JSON.stringify(e))
     }
   }
 
